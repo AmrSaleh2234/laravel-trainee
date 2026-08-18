@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $status = $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500;
 
                 return response()->json([
-                    'message' => $e->getMessage() ?: 'Server Error',
+                    'message' => "لازم تعمل لوجين الاول ",
                 ], $status);
             }
         });
