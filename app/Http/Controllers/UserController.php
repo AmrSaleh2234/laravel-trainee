@@ -12,7 +12,6 @@ class UserController extends Controller
 {
     function register()
     {
-        return "Hello, World!";
         $newUser = User::create([
             "name" => $request->input("name"),
             "email" => $request->input("email"),
