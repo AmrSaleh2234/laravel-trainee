@@ -12,13 +12,22 @@ class UserController extends Controller
 {
     function register(Request $request)
     {
-        $newUser = User::create([
-            "name" => $request->input("name"),
-            "email" => $request->input("email"),
-            "password" => Hash::make($request->input("password"))
+        $validated = $request->validate([
+            "name" => "required|string",
+            "email" => "required|email|unique:users,email",
+            "password" => "required|string|min:6"
         ]);
 
-        return $newUser;
+        $newUser = User::create([
+            "name" => $validated["name"],
+            "email" => $validated["email"],
+            "password" => Hash::make($validated["password"])
+        ]);
+
+        return response()->json([
+            "message" => "User registered successfully",
+            "user" => $newUser
+        ], 201);
     }
 
     function login(Request $request)
