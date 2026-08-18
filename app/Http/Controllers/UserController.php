@@ -26,9 +26,11 @@ class UserController extends Controller
         $user = User::where("email", $request->input("email"))
             ->first();
         if ($user && Hash::check($request->input("password"), $user->password)) {
+            $token = $user->createToken("auth_token")->plainTextToken;
             return response()->json([
                 "message" => "Login successful",
-                "user" => $user
+                "user" => $user,
+                "token" => $token
             ]);
         } else {
             return response()->json([
