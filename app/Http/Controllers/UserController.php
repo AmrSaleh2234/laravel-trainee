@@ -15,7 +15,7 @@ class UserController extends Controller
         $newUser = User::create([
             "name" => $request->input("name"),
             "email" => $request->input("email"),
-            "password" => Hash::make($request->input("passwordphp"))
+            "password" => Hash::make($request->input("password"))
         ]);
 
         return $newUser;
@@ -25,8 +25,7 @@ class UserController extends Controller
     {
         $user = User::where("email", $request->input("email"))
             ->first();
-        $password = $request->input("password");
-        if ($user && Hash::check($request->input("password"), $password)) {
+        if ($user && Hash::check($request->input("password"), $user->password)) {
             return response()->json([
                 "message" => "Login successful",
                 "user" => $user
