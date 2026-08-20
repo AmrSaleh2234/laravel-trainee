@@ -7,12 +7,18 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+
 class PostController extends Controller
 {
+    public PostServiceClass $service;
+
+    public function __construct()
+    {
+        $this->service = new PostServiceClass();
+    }
     public function index()
     {
-        $posts = Post::all();
-
+        $posts = $this->service->getPostsWithCommentsAndTags();
         return response()->json($posts);
     }
 
