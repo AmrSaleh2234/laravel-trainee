@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\PostServiceClass;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
@@ -65,7 +66,7 @@ foreach ($request->tag_ids as $tagId) {
     }
     public function destroy($id)
     {
-    
+
         $post = Post::findOrFail($id);
         $post->delete();
 

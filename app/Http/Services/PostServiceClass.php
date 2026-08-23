@@ -2,7 +2,7 @@
 
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
 
 
