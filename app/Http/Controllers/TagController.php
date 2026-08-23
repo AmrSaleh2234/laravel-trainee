@@ -10,25 +10,28 @@ class TagController extends Controller
 
 {
 
- public TagServiceClass $service;
+    public TagServiceClass $service;
 
-  public function __construct()
-  {
+    public function __construct()
+    {
 
-  $this->service =new TagServiceClass();  }
+        $this->service = new TagServiceClass();
+    }
+
     public function index()
     {
-     $tags = $this->service->getAllTags();
+        $tags = $this->service->getAllTags();
 
         return response()->json($tags);
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-       $tag =$this->service->createTag($request ->name);
+        $tag = $this->service->createTag($request->name);
 
         return response()->json($tag, 201);
     }
