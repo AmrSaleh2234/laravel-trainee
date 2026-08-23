@@ -2,8 +2,8 @@
 
 namespace App\Http\Services;
 
-TagServiceClass
+class TagServiceClass
 
 {
-  
+
 }
