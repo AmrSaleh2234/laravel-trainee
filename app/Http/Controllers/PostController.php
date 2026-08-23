@@ -32,35 +32,22 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $post = Post::create([//insert into posts table
-            'title' => $request->title,
-            'body' => $request->body,
-            'user_id'=>auth()->user()->id
-        ]);
-
-
-foreach ($request->tag_ids as $tagId) {
-            $tag = Tag::find($tagId);
-            if (!$tag) {
-                return response()->json(['error' => 'Tag not found'], 404);
-            }
-        }
-
-
-
-        $post->tags()->attach($request->tag_ids);//insert posts_tags
+       
+  $post = $this->service-> createPostWithTags($request->title, $request->body, auth()->user()->id, $request->tag_ids);
+        
 
         return response()->json($post);
     }
 
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+        $post = $this->service->updatePost($id, $request->title , $request->body );
 
-        $post->update([
-            'title' => $request->title,
-            'body' => $request->body,
-        ]);
+        if (!$post) {
+
+        return response()->json(['error' => 'Post not found'], 404);
+
+        }
 
         return response()->json($post);
     }
