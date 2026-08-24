@@ -83,4 +83,9 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Tags detached successfully']);
     }
+
+
+
+
+    
 }
