@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TagController;
 
+
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -33,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/posts/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
     Route::get('/posts/{id}/comments', [PostController::class, 'comments']);
+
+    Route::delete('/posts/{id}/tags',[postController::class,'detachTag']);
 
 
     Route::get('/comments', [CommentController::class, 'index']);

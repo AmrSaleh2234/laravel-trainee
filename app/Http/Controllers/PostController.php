@@ -32,21 +32,20 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-       
-  $post = $this->service-> createPostWithTags($request->title, $request->body, auth()->user()->id, $request->tag_ids);
-        
+
+        $post = $this->service->createPostWithTags($request->title, $request->body, auth()->user()->id, $request->tag_ids);
+
 
         return response()->json($post);
     }
 
     public function update(Request $request, $id)
     {
-        $post = $this->service->updatePost($id, $request->title , $request->body );
+        $post = $this->service->updatePost($id, $request->title, $request->body);
 
         if (!$post) {
 
-        return response()->json(['error' => 'Post not found'], 404);
-
+            return response()->json(['error' => 'Post not found'], 404);
         }
 
         return response()->json($post);
@@ -67,8 +66,21 @@ class PostController extends Controller
             return response()->json(['error' => 'Post not found'], 404);
         }
         $comments = Comment::where('post_id', $id)->get();
-       // $comments = $post->comments;
+        // $comments = $post->comments;
 
         return response()->json($comments);
+    }
+
+
+    public function detachTag($id)
+    {
+        $post = $this->service->detachTagsFromPost($id);
+
+        if (!$post) {
+
+            return response()->json(['error' => 'post not found'], 404);
+        }
+
+        return response()->json(['message' => 'Tags detached successfully']);
     }
 }

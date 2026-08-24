@@ -3,8 +3,10 @@
 
 
 namespace App\Http\Services;
+
 use App\Models\Post;
-use App\Models\Tag; 
+use App\Models\Tag;
+
 
 
 
@@ -18,16 +20,16 @@ class PostServiceClass
     }
 
     public function createPostWithTags($title, $body, $userId, $tagIds)
- {
+    {
 
- $post = Post::create([//insert into posts table
+        $post = Post::create([ //insert into posts table
             'title' => $title,
             'body' => $body,
-            'user_id'=> $userId
+            'user_id' => $userId
         ]);
 
 
-foreach ($tagIds as $tagId) {
+        foreach ($tagIds as $tagId) {
             $tag = Tag::find($tagId);
             if (!$tag) {
                 return response()->json(['error' => 'Tag not found'], 404);
@@ -36,19 +38,19 @@ foreach ($tagIds as $tagId) {
 
 
 
-        $post->tags()->attach($tagIds);//insert posts_tags
+        $post->tags()->attach($tagIds); //insert posts_tags
 
         return $post;
- }
+    }
 
- public function updatePost($postId, $title, $body)
- {
+    public function updatePost($postId, $title, $body)
+    {
 
-$post = Post::find($postId);
+        $post = Post::find($postId);
 
-if (!$post){
-    return false;
-}
+        if (!$post) {
+            return false;
+        }
 
         $post->update([
             'title' => $title,
@@ -56,8 +58,23 @@ if (!$post){
         ]);
 
 
-return $post;
+        return $post;
+    }
 
- }
 
+
+    public function detachTagsFromPost($postId)
+    {
+
+
+        $post = post::find($postId);
+
+        if (!$post) {
+            return false;
+        }
+
+        $post->tags()->detach();
+
+        return true;
+    }
 }
