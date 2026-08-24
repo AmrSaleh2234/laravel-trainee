@@ -1,5 +1,3 @@
-
-
 <?php
 
 namespace App\Http\Repositories;
@@ -25,4 +23,27 @@ class PostRepositoreyClass
             'user_id' => $userId
         ]);
     }
+
+
+
+
+    public function findPostById($postId)
+    {
+        return \App\Models\Post::find($postId);
+    }
+ 
+    public function updatePost($postId, $title, $body)
+    {
+        $post = $this->findPostById($postId);
+
+    
+        $post->update([
+            'title' => $title,
+            'body' => $body,
+        ]);
+
+        return $post;
+    }
+
+
 }

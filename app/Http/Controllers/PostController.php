@@ -48,7 +48,7 @@ class PostController extends Controller
             return response()->json(['error' => 'Post not found'], 404);
         }
 
-        return response()->json($post);
+        return response()->json("Post updated successfully");
     }
     public function destroy($id)
     {

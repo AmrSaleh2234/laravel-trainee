@@ -6,6 +6,8 @@ namespace App\Http\Services;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Http\Repositories\PostRepositoreyClass;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -13,9 +15,16 @@ use App\Models\Tag;
 
 class PostServiceClass
 {
+
+    public PostRepositoreyClass $repository;
+
+    public function __construct()
+    {
+        $this->repository = new PostRepositoreyClass();
+    }
     public function getPostsWithCommentsAndTags()
     {
-        $posts = \App\Models\Post::with(['comments', 'tags'])->get();
+        $posts = $this->repository->getPostsWithCommentsAndTags();
         return $posts;
     }
 
@@ -46,19 +55,24 @@ class PostServiceClass
     public function updatePost($postId, $title, $body)
     {
 
-        $post = Post::find($postId);
+    DB::transaction(function () use ($postId, $title, $body) {
+
+        $post = $this->repository->findPostById($postId);
 
         if (!$post) {
             return false;
         }
 
-        $post->update([
-            'title' => $title,
-            'body' => $body,
-        ]);
-
+       $post = $this->repository->updatePost($postId, $title, $body);   
 
         return $post;
+
+
+    
+    });
+    return true ;
+
+
     }
 
 
@@ -67,7 +81,7 @@ class PostServiceClass
     {
 
 
-        $post = post::find($postId);
+        $post = $this->repository->findPostById($postId);
 
         if (!$post) {
             return false;
