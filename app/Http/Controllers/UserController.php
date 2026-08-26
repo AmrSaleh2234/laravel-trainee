@@ -16,7 +16,8 @@ class UserController extends Controller
         $validated = $request->validate([
             "name" => "required|string",
             "email" => "required|email|unique:users,email",
-            "password" => "required|string|min:6"
+            "password" => "required|string|min:6",
+            "photo" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
         ]);
 
         $newUser = User::create([
@@ -25,9 +26,14 @@ class UserController extends Controller
             "password" => Hash::make($validated["password"])
         ]);
 
+        if ($request->hasFile('photo')) {
+            $newUser->addMediaFromRequest('photo')->toMediaCollection('profile_pictures');
+        }
+
         return response()->json([
             "message" => "User registered successfully",
-            "user" => $newUser
+            "user" => $newUser,
+            "profile_picture" => $newUser->getFirstMediaUrl('profile_pictures')
         ], 201);
     }
 
@@ -54,7 +60,7 @@ class UserController extends Controller
     //GET all users
     public function index()
     {
-        $users = User::all();
+        $users = User::with('media')->get();
 
         return response()->json($users);
     }

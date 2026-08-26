@@ -9,6 +9,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 
 
+
 class PostController extends Controller
 {
     public PostServiceClass $service;
@@ -34,6 +35,7 @@ class PostController extends Controller
     {
 
         $post = $this->service->createPostWithTags($request->title, $request->body, auth()->user()->id, $request->tag_ids);
+
 
 
         return response()->json($post);

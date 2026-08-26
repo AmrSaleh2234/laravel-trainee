@@ -36,7 +36,7 @@ class PostServiceClass
             'body' => $body,
             'user_id' => $userId
         ]);
-
+$post->addMediaFromRequest('photo')->toMediaCollection('post_images');
 
         foreach ($tagIds as $tagId) {
             $tag = Tag::find($tagId);
@@ -46,10 +46,9 @@ class PostServiceClass
         }
 
 
-
         $post->tags()->attach($tagIds); //insert posts_tags
 
-        return $post;
+        return Post::where("id",$post->id)->with("media")->first();
     }
 
     public function updatePost($postId, $title, $body)

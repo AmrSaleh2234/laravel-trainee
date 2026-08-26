@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use spatie\mediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +26,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+       
     ];
+
+    public function registerMediaCollections(): void
+    {
+
+        $this->addMediaCollection('profile_pictures')
+            ->singleFile();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
