@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-               $table->string('photo')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'photo')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('photo')->nullable();
+            });
+        }
     }
-
     /**
      * Reverse the migrations.
      */

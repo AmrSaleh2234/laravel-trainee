@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 
 
@@ -16,7 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/register', [UserController::class, 'register'])->middleware("role:auper-admin");
     Route::get('/bookings', [BookingController::class, 'myBookings']);
 
     Route::get('/users', [UserController::class, 'index']);
@@ -43,6 +44,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/comment', [CommentController::class, 'store']);
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
     Route::patch('/comments/{id}', [CommentController::class, 'update']);
+
+
+
+    Route::get('/role',[RoleController::class,'index']);
+    Route::get('/role/{id}',[RoleController::class,'show']);
+    Route::post('/role',[RoleController::class,'store']);
+    Route::delete('/role',[RoleController::class,'destroy']);
+    Route::patch('/rolle',[RoleController::class,'update']);
+    Route::post('/role/assign-role-to-user',[RoleController::class,"assignRolleToUser"]);
 
 
 
