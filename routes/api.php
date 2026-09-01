@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::post('/login', [UserController::class, 'login']);
@@ -17,7 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::post('/register', [UserController::class, 'register'])->middleware("role:auper-admin");
+    Route::post('/register', [UserController::class, 'register'])->middleware("permission:create user");
     Route::get('/bookings', [BookingController::class, 'myBookings']);
 
     Route::get('/users', [UserController::class, 'index']);
@@ -36,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
     Route::get('/posts/{id}/comments', [PostController::class, 'comments']);
 
-    Route::delete('/posts/{id}/tags',[postController::class,'detachTag']);
+    Route::delete('/posts/{id}/tags', [postController::class, 'detachTag']);
 
 
     Route::get('/comments', [CommentController::class, 'index']);
@@ -47,12 +48,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::get('/role',[RoleController::class,'index']);
-    Route::get('/role/{id}',[RoleController::class,'show']);
-    Route::post('/role',[RoleController::class,'store']);
-    Route::delete('/role',[RoleController::class,'destroy']);
-    Route::patch('/rolle',[RoleController::class,'update']);
-    Route::post('/role/assign-role-to-user',[RoleController::class,"assignRolleToUser"]);
+    Route::get('/role', [RoleController::class, 'index']);
+    Route::get('/role/{id}', [RoleController::class, 'show']);
+    Route::post('/role', [RoleController::class, 'store']);
+    Route::delete('/role', [RoleController::class, 'destroy']);
+    Route::patch('/rolle', [RoleController::class, 'update']);
+    Route::post('/role/assign-role-to-user', [RoleController::class, "assignRolleToUser"]);
 
 
 
@@ -61,5 +62,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tag', [TagController::class, 'store']);
     Route::get('/tag', [TagController::class, 'index']);
 
-
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::get('/categories/{id}/parent', [CategoryController::class, 'parent']);
+    Route::get('/categories/{id}/ancestors', [CategoryController::class, 'ancestors']);
+    Route::get('/categories/{id}/ancestors-query', [CategoryController::class, 'ancestorsQuery']);
+    Route::get('/categories/{id}/hierarchy', [CategoryController::class, 'hierarchy']);
+    Route::get('/categories/{id}/descendants', [CategoryController::class, 'descendants']);
+    Route::get('/categories/{id}/descendants-query', [CategoryController::class, 'descendantsQuery']);
 });

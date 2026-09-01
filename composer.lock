@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4b0a386c3858728d2997a4c6f8deb10",
+    "content-hash": "4dec31c95d6487be64a0093a1622acdc",
     "packages": [
         {
             "name": "brick/math",
@@ -2608,6 +2608,71 @@
                 "source": "https://github.com/nette/utils/tree/v4.1.5"
             },
             "time": "2026-07-17T23:02:45+00:00"
+        },
+        {
+            "name": "nevadskiy/laravel-tree",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xalaida/laravel-tree.git",
+                "reference": "f17ac83e20c23124e33970a41c26acdd53e1227b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xalaida/laravel-tree/zipball/f17ac83e20c23124e33970a41c26acdd53e1227b",
+                "reference": "f17ac83e20c23124e33970a41c26acdd53e1227b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=8.79",
+                "php": "^7.3|^8.0"
+            },
+            "conflict": {
+                "nesbot/carbon": "<2.62.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "orchestra/testbench": ">=6.25",
+                "phpunit/phpunit": "^9.0|^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Nevadskiy\\Tree\\TreeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nevadskiy\\Tree\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nevadskiy",
+                    "email": "nevadskiy@gmail.com"
+                }
+            ],
+            "description": "Tree-like structure for Eloquent models.",
+            "keywords": [
+                "eloquent",
+                "hierarchy",
+                "laravel",
+                "ltree",
+                "materialized path",
+                "path",
+                "tree"
+            ],
+            "support": {
+                "issues": "https://github.com/xalaida/laravel-tree/issues",
+                "source": "https://github.com/xalaida/laravel-tree/tree/0.6.1"
+            },
+            "time": "2025-06-14T18:14:24+00:00"
         },
         {
             "name": "nikic/php-parser",
